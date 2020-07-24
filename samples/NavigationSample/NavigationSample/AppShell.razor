@@ -1,0 +1,28 @@
+﻿<Shell
+       OnNavigated="OnNavigated"
+       OnNavigating="OnNavigating"
+       >
+    <ShellContent>
+        <HelloWorld />
+    </ShellContent>
+</Shell>
+
+@code {
+
+    public AppShell()
+    {
+        // Routing.RegisterRoute("secondpage", typeof(SecondPage));
+        //Routing.RegisterRoute("code", typeof(CodedPage));
+
+
+    }
+    void OnNavigated(ShellNavigatedEventArgs e)
+    {
+        System.Diagnostics.Debug.WriteLine($"naved {e}");
+    }
+
+    void OnNavigating(ShellNavigatingEventArgs e)
+    {
+        System.Diagnostics.Debug.WriteLine($"naved {e}");
+    }
+}

@@ -1,0 +1,25 @@
+﻿@inject SampleNavigationManager NavigationManager
+
+<ContentPage>
+    <StackLayout Margin="new Thickness(20)">
+
+        <Label Text="Hello, World!"
+               FontSize="40" />
+
+        <Counter />
+        <Button Text="Navigate to second page" OnClick="Navigate"></Button>
+        <Button Text="Navigate to coded page" OnClick="NavigateToCode"></Button>
+    </StackLayout>
+</ContentPage>
+
+@code {
+    public void Navigate()
+    {
+        NavigationManager.NavigateTo("secondpage");
+
+    }
+    public void NavigateToCode()
+    {
+        NavigationManager.NavigateTo("code");
+    }
+}

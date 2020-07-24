@@ -7,6 +7,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.MobileBlazorBindings.Elements.Handlers;
 using System;
+using System.Linq;
+using System.Threading.Tasks;
 using XF = Xamarin.Forms;
 
 namespace Microsoft.MobileBlazorBindings
@@ -40,6 +42,42 @@ namespace Microsoft.MobileBlazorBindings
             // We need to figure out how to get Xamarin.Forms to run this startup code asynchronously, which
             // is how this method should be called.
             renderer.AddComponent<TComponent>(CreateHandler(parent, renderer)).ConfigureAwait(false);
+        }
+
+        //I want the same as the above method, but Async and accepting a type instead of a generic
+        public static async Task AddComponent(this IHost host, XF.Element parent, Type componentType) //I don't know how to enforce that the type implementes IComponent in a design time type safe manour. e.g. where TComponent : IComponent is how you do it with generics
+        {
+            
+
+            if (host is null)
+            {
+                throw new ArgumentNullException(nameof(host));
+            }
+
+            if (parent is null)
+            {
+                throw new ArgumentNullException(nameof(parent));
+            }
+            if(componentType is null)
+            {
+                throw new ArgumentNullException(nameof(componentType));
+            }
+
+            if (!componentType.GetInterfaces().Contains(typeof(IComponent)))
+            {
+                throw new InvalidOperationException($"componentType must implement IComponent; {componentType.FullName} can not be added to a {parent.GetType().FullName}");
+            }
+
+
+            var services = host.Services;
+#pragma warning disable CA2000 // Dispose objects before losing scope
+            var renderer = new MobileBlazorBindingsRenderer(services, services.GetRequiredService<ILoggerFactory>());
+#pragma warning restore CA2000 // Dispose objects before losing scope
+
+            // TODO: This call is an async call, but is called as "fire-and-forget," which is not ideal.
+            // We need to figure out how to get Xamarin.Forms to run this startup code asynchronously, which
+            // is how this method should be called.
+            await renderer.AddComponent(componentType, CreateHandler(parent, renderer)).ConfigureAwait(false);
         }
 
         private static ElementHandler CreateHandler(XF.Element parent, MobileBlazorBindingsRenderer renderer)

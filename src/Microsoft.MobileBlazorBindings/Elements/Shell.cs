@@ -12,6 +12,8 @@ namespace Microsoft.MobileBlazorBindings.Elements
 {
     public partial class Shell : Page
     {
+        public static Shell Current;
+
         [Parameter] public RenderFragment FlyoutHeader { get; set; }
 
         [Parameter] public EventCallback<XF.ShellNavigatedEventArgs> OnNavigated { get; set; }
@@ -21,6 +23,7 @@ namespace Microsoft.MobileBlazorBindings.Elements
         {
             builder.AddAttribute("onnavigated", OnNavigated);
             builder.AddAttribute("onnavigating", OnNavigating);
+            Current = this;
         }
 
         public async Task GoTo(XF.ShellNavigationState state, bool animate = true)
@@ -30,6 +33,8 @@ namespace Microsoft.MobileBlazorBindings.Elements
                 throw new ArgumentNullException(nameof(state));
             }
 
+            //Note this state has to refer to a Forms page, not a MBB Page,
+            //hmm
             await NativeControl.GoToAsync(state, animate).ConfigureAwait(true);
         }
 
