@@ -7,7 +7,7 @@
     </Layout>
     <Contents>
         <GridCell RowSpan="2">
-            <Image Source="new UriImageSource { Uri=new Uri(Animal.ImageUrl) }"
+            <Image Source="new UriImageSource { Uri = new Uri(Animal.ImageUrl) }"
                    Aspect="Aspect.AspectFill"
                    HeightRequest="60"
                    WidthRequest="60" />
@@ -19,7 +19,8 @@
         </GridCell>
 
         <GridCell Row="1" Column="1">
-            <Label Text="@Animal.Location"
+            <Button Text="@Animal.Location"
+                    OnClick="AnimalClicked"
                    FontAttributes="FontAttributes.Italic"
                    VerticalOptions="LayoutOptions.End" />
         </GridCell>
@@ -30,4 +31,10 @@
 @code
 {
     [Parameter] public Animal Animal { get; set; }
+    [Parameter] public EventCallback OnClick { get; set; }
+    public void AnimalClicked()
+    {
+        System.Diagnostics.Debug.WriteLine("Animal Clicked");
+        OnClick.InvokeAsync(null);
+    }
 }

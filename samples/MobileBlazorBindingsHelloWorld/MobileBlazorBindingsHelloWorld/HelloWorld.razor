@@ -4,7 +4,15 @@
         <Label Text="Hello, World!"
                FontSize="40" />
 
-        <Counter />
+        <Counter OnClick="@OnClick" />
 
     </StackLayout>
 </ContentView>
+
+@code 
+{
+    public void OnClick()
+    {
+        System.Diagnostics.Debug.WriteLine($"Hello World Clicked. Child Successfully called parent");
+    }
+}

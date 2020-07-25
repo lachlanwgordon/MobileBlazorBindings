@@ -3,8 +3,15 @@
         <StackLayout>
             @foreach (var animal in MobileBlazorBindingsXaminals.Data.BearData.Bears)
             {
-                <AnimalTemplate Animal="animal" />
+                <AnimalTemplate Animal="animal" OnClick="AnimalClick" />
             }
         </StackLayout>
     </ScrollView>
 </ContentPage>
+
+@code {
+    public void AnimalClick()
+    {
+        System.Diagnostics.Debug.WriteLine("animcal clicked and passed to parent");
+    }
+}

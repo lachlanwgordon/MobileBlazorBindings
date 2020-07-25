@@ -3,6 +3,7 @@
     <StackLayout Orientation="StackOrientation.Horizontal" HorizontalOptions="LayoutOptions.Center">
 
         <Button OnClick="IncrementCount">Increment</Button>
+        <Button OnClick="CallParent">Call Parent</Button>
 
         <Label Text="@("The button was clicked " + count + " times")"
                FontAttributes="FontAttributes.Bold"
@@ -14,10 +15,23 @@
 
 @code
 {
+    [Parameter] public EventCallback OnClick { get; set; }
+
     int count;
 
     void IncrementCount()
     {
         count++;
+    }
+
+    void CallParent()
+    {
+        System.Diagnostics.Debug.WriteLine($"Button clicked in Counter child component, this will run. ");
+        if (OnClick.HasDelegate)
+        {
+            System.Diagnostics.Debug.WriteLine($"Button clicked in Counter child component, this will run.");
+             OnClick.InvokeAsync(null);
+
+        }
     }
 }
