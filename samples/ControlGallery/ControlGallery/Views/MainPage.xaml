@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:mapsui="clr-namespace:Mapsui.UI.Forms;assembly=Mapsui.UI.Forms"
+
+             x:Class="ControlGallery.Views.MainPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <!-- Place new controls here -->
+
+            <mapsui:MapView
+                x:Name="mapView"
+                VerticalOptions="FillAndExpand"
+                HorizontalOptions="Fill"
+                BackgroundColor="Gray" />
+            <Button
+                Text="Here"
+                Clicked="Button_Clicked"
+                HorizontalOptions="Center"
+               />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

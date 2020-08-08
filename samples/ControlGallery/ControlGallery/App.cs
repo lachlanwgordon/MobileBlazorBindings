@@ -4,6 +4,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.MobileBlazorBindings;
 using Xamarin.Forms;
+using Microsoft.Extensions.DependencyInjection;
+using ControlGallery.Views;
 
 namespace ControlGallery
 {

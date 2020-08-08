@@ -1,0 +1,37 @@
+﻿@using Microsoft.MobileBlazorBindings.SkiaSharp.Elements
+
+<ContentPage>
+    <StackLayout>
+        <SKCanvasView HeightRequest="200" @ref="Canvas"></SKCanvasView>
+    </StackLayout>
+</ContentPage>
+
+@code 
+{ 
+    SKCanvasView Canvas { get; set; }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+
+
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+        var canvasView = Canvas.NativeControl as SkiaSharp.Views.Forms.SKCanvasView;
+
+        canvasView.PaintSurface += PaintSurface;
+        canvasView.InvalidateSurface();
+    }
+
+    void PaintSurface (object sender, SkiaSharp.Views.Forms.SKPaintSurfaceEventArgs e)
+    {
+        var surface = e.Surface;
+        var canvas = surface.Canvas;
+        canvas.Clear(SkiaSharp.SKColor.Parse("#CC0000"));
+
+    }
+}

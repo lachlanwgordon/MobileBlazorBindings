@@ -1,0 +1,51 @@
+@using Microsoft.MobileBlazorBindings.Mapsui.Elements
+@using Mapsui
+@using Mapsui.Utilities
+@using Mapsui.Projection
+
+<ContentPage>
+    <StackLayout>
+        <Button Text="Map" OnClick="MapClicked" ></Button>
+        <MapView @ref="mapView">
+        </MapView>
+    </StackLayout>
+</ContentPage>
+
+@code
+{
+
+    MapView mapView;
+
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+        var map = new Mapsui.Map
+        {
+            CRS = "EPSG:3857",
+            Transformation = new MinimalTransformation()
+        };
+
+        var tileLayer = OpenStreetMap.CreateTileLayer();
+
+        map.Layers.Add(tileLayer);
+        map.Widgets.Add(new Mapsui.Widgets.ScaleBar.ScaleBarWidget(map) { TextAlignment = Mapsui.Widgets.Alignment.Center, HorizontalAlignment = Mapsui.Widgets.HorizontalAlignment.Left, VerticalAlignment = Mapsui.Widgets.VerticalAlignment.Bottom });
+
+
+        var xMap = mapView.NativeControl as Mapsui.UI.Forms.MapView;
+        xMap.Map = map;
+    }
+
+    void MapClicked()
+    {
+
+    }
+
+
+}
