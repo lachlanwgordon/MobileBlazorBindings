@@ -58,6 +58,9 @@ namespace Microsoft.MobileBlazorBindings.Core
             if (edits.Count == 0)
             {
                 // TODO: Without this check there's a NullRef in ArrayBuilderSegment? Possibly a Blazor bug?
+
+                //Really? that's odd. 
+                //I suppose that means ArrayBuilderSegment is implmented incorrectly...
                 return;
             }
 

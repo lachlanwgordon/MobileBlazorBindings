@@ -43,6 +43,13 @@ namespace Microsoft.MobileBlazorBindings
                 return;
             }
 
+            if(parentHandler is INonPhysicalParent)
+            {
+                //Creating a view to put in a collection view
+                //No need to set the real parent
+                return;
+            }
+
             if (!(parentHandler is IXamarinFormsContainerElementHandler parent))
             {
                 throw new NotSupportedException($"Handler of type '{parentHandler.GetType().FullName}' representing element type " +

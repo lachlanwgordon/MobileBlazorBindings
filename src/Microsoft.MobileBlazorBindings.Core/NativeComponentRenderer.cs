@@ -62,6 +62,8 @@ namespace Microsoft.MobileBlazorBindings.Core
                 return await Dispatcher.InvokeAsync(async () =>
                 {
                     var component = InstantiateComponent(componentType);
+
+
                     var componentId = AssignRootComponentId(component);
 
                     var rootAdapter = new NativeComponentAdapter(this, closestPhysicalParent: parent, knownTargetElement: parent)

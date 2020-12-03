@@ -76,6 +76,29 @@ namespace Microsoft.MobileBlazorBindings
             return await renderer.AddComponent(type, CreateHandler(parent, renderer), parameters).ConfigureAwait(false);
         }
 
+//        public static async Task<IComponent> MakeComponent(this IServiceProvider services, Type type, System.Collections.Generic.Dictionary<string, string> parameters = null)
+//        {
+//            if (services is null)
+//            {
+//                throw new ArgumentNullException(nameof(services));
+//            }
+            
+//            if (type is null)
+//            {
+//                throw new ArgumentNullException(nameof(type));
+//            }
+//            if (!typeof(IComponent).IsAssignableFrom(type))
+//            {
+//                throw new InvalidOperationException($"Cannot make a {type.Name}. {type.Name} is not an IComponent. If you are trying to add a Xamarin.Forms type, try adding the Mobile Blazor Bindings equivalent instead.");
+//            }
+
+//#pragma warning disable CA2000 // Dispose objects before losing scope
+//            var renderer = new MobileBlazorBindingsRenderer(services, services.GetRequiredService<ILoggerFactory>());
+//#pragma warning restore CA2000 // Dispose objects before losing scope
+
+//            return await renderer.MakeComponent(type, CreateHandler(null, renderer), parameters).ConfigureAwait(false);
+//        }
+
         private static ElementHandler CreateHandler(XF.Element parent, MobileBlazorBindingsRenderer renderer)
         {
             return parent switch
@@ -90,6 +113,7 @@ namespace Microsoft.MobileBlazorBindings
                 XF.ShellItem shellItem => new ShellItemHandler(renderer, shellItem),
                 XF.ShellSection shellSection => new ShellSectionHandler(renderer, shellSection),
                 XF.TabbedPage tabbedPage => new TabbedPageHandler(renderer, tabbedPage),
+                //XF.CollectionView collectionView => new CollectionViewHandler(renderer, collectionView),
                 _ => new ElementHandler(renderer, parent),
             };
         }

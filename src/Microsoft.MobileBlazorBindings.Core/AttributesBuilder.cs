@@ -2,6 +2,8 @@
 // Licensed under the MIT license.
 
 using Microsoft.AspNetCore.Components.Rendering;
+using System;
+using System.Collections.Generic;
 
 namespace Microsoft.MobileBlazorBindings.Core
 {
@@ -40,5 +42,21 @@ namespace Microsoft.MobileBlazorBindings.Core
             // element handlers will see all property changes and can handle them as needed.
             _underlyingBuilder.AddAttribute(0, name, value ? 1 : 0);
         }
+
+        public void AddAttributeReference(string name, object value)
+        {
+            var id = Guid.NewGuid().ToString();
+
+            References.Add(id, value);
+
+            _underlyingBuilder.AddAttribute(0, name, id);
+        }
+
+        public static object GetAttributeReference(string Id)
+        {
+            return References[Id];
+        }
+
+        static readonly Dictionary<string, object> References = new Dictionary<string, object>();
     }
 }

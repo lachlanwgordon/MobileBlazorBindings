@@ -1,0 +1,28 @@
+﻿@page "/collectionview"
+<ContentView>
+        <Grid RowDefinitions="Auto, *">
+            <GridCell>
+                <CallbackPicker ItemsSource="Items">
+                    
+                </CallbackPicker>
+                    
+            </GridCell>
+            <GridCell Row="1">
+                
+            </GridCell>
+        </Grid>
+</ContentView>
+
+
+@code {
+                    //TemplateType="@(typeof(ControlGallery.Views.))"
+    public List<String> Items { get; set; } = new List<string>
+            {
+                "Hello",
+                "this",
+                "Is ",
+                "A",
+                "Collection",
+                "View"
+            };
+}

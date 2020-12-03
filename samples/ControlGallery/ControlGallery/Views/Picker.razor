@@ -1,0 +1,35 @@
+﻿@using System.Collections
+@using Microsoft.MobileBlazorBindings.Elements
+
+<Microsoft.MobileBlazorBindings.Elements.PickerElement @ref="ThePicker">
+    
+</Microsoft.MobileBlazorBindings.Elements.PickerElement>
+
+
+
+@code {
+
+    public PickerElement ThePicker {get;set;}
+    [Parameter]
+    public IList ItemsSource {get;set;}
+
+    protected override void OnParametersSet()
+    {
+        @*if(ItemsSource != null)
+        {
+            ThePicker.NativeControl.ItemsSource = ItemsSource;
+        }*@
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+        }
+        if(ItemsSource != null)
+        {
+            ThePicker.NativeControl.ItemsSource = ItemsSource;
+        }
+    }
+
+}
