@@ -144,7 +144,7 @@
   </ItemGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties XamarinHotReloadGenericExceptionInfoBarHybridAppiOSHideInfoBar="True" />
+      <UserProperties XamarinHotReloadGenericExceptionInfoBarHybridAppiOSHideInfoBar="True" TriggeredFromHotReload="False" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- Normally this import would be automatic through the nuget package. We do it manually for projects inside this solution. -->

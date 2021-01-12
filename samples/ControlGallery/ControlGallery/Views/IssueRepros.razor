@@ -1,0 +1,13 @@
+﻿@page "/issues"
+@inject ShellNavigationManager NavigationManager
+
+<ScrollView>
+    <StackLayout>
+        <Button Text="#286 Skia and Webview " OnClick="Issue286"></Button>
+    </StackLayout>
+</ScrollView>
+
+@code
+{
+    async Task Issue286() => await NavigationManager.NavigateToAsync("/issues/286");
+}

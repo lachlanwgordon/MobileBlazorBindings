@@ -1,0 +1,64 @@
+﻿@using Microsoft.MobileBlazorBindings.SkiaSharp
+@using SkiaSharp; 
+@using SK = SkiaSharp.Views.Forms
+@using Microsoft.MobileBlazorBindings.WebView.Elements
+@page "/issues/286"
+
+<ContentView>
+    <StackLayout>
+
+      
+
+      @*  <SKCanvasView @ref="CanvasView"
+                    OnPaintSurface="PaintSurface"
+                    HeightRequest="100" />*@
+
+        <BlazorWebView VerticalOptions="LayoutOptions.FillAndExpand" BackgroundColor="@Color.Blue" >
+            <ControlGallery.WebUI.App />
+        </BlazorWebView>
+
+    </StackLayout>
+</ContentView>
+
+@code {
+
+
+    public SKCanvasView CanvasView { get; set; }
+    private float rotation;
+
+    private void PaintSurface(SK.SKPaintSurfaceEventArgs e)
+        {
+            var canvas = e.Surface.Canvas;
+            canvas.Clear(SKColors.Crimson);
+            var canvasSize = e.Info.Rect;
+
+            var path = SKPath.ParseSvgPathData("M 926 878 c -46 -79 -113 -137 -186 -163 c -24 -8 -45 -14 -47 -12 c -2 2 5 24 16 48 c 10 24 21 59 25 77 l 6 33 l -38 -30 c -73 -59 -124 -74 -277 -82 c -88 -4 -156 -12 -183 -22 c -165 -62 -267 -249 -232 -423 c 44 -214 218 -328 453 -296 c 95 14 223 71 272 122 l 30 31 l -45 -25 c -85 -47 -185 -70 -300 -71 c -95 0 -111 3 -166 28 c -114 53 -176 143 -182 264 c -5 97 16 158 79 227 c 66 73 130 101 229 100 c 66 0 83 -4 138 -34 c 105 -56 165 -154 166 -270 c 1 -75 -22 -118 -74 -140 c -35 -15 -98 -1 -120 25 c -11 13 -16 12 -42 -10 c -63 -53 -178 -24 -218 56 c -25 47 -25 82 -1 135 c 28 63 71 84 168 84 c 110 0 116 -5 122 -119 c 6 -94 14 -110 53 -111 c 31 0 48 29 48 83 c -1 177 -194 291 -351 209 c -143 -75 -180 -250 -77 -367 c 59 -67 106 -88 208 -93 c 291 -14 551 199 592 485 c 14 94 2 198 -30 259 l -18 34 l -18 -32 Z");
+
+            var pathSize = path.Bounds;
+
+            canvas.Translate(canvasSize.MidX, canvasSize.MidY);
+            var shortSideRatio = Math.Min(canvasSize.Width / pathSize.Width, canvasSize.Height / pathSize.Width);
+            canvas.Scale(0.7f * shortSideRatio);
+            canvas.RotateDegrees(rotation);
+            canvas.Translate(-pathSize.MidX, -pathSize.MidY);
+
+            canvas.Scale(-1);
+
+            var paint = new SKPaint
+            {
+                Color = SKColors.Purple,
+                Style = SKPaintStyle.Fill,
+            };
+
+            var matrix = SKMatrix.Identity;
+            matrix.ScaleX = -1;
+            matrix.TransY = -canvasSize.Height * 1.5f;
+            path.Transform(matrix);
+            canvas.DrawPath(path, paint);
+
+            path = SKPath.ParseSvgPathData("M 317 459 c -11 -6 -25 -26 -33 -45 c -38 -91 78 -165 146 -92 c 16 17 20 35 20 85 l 0 63 l -57 0 c -32 0 -66 -5 -76 -11 Z");
+            path.Transform(matrix);
+
+            canvas.DrawPath(path, paint);
+        }
+}

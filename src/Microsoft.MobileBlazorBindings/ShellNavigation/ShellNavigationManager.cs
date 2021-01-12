@@ -39,6 +39,8 @@ namespace Microsoft.MobileBlazorBindings
                 {
                     if (page.IsSubclassOf(typeof(ComponentBase)))
                     {
+                        if (route.Template == "/")
+                            continue;//This is the index page used in a hybrid app
                         var structuredRoute = new StructuredRoute(route.Template, page);
 
                         //Register with XamarinForms so it can handle Navigation.
